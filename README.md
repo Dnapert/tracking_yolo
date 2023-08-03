@@ -4,7 +4,7 @@
 
 ## Installation
  ```
-    git clone https://github.com/Dan
+    git clone https://github.com/Dnapert/tracking_yolo.git
  ```
 
 ## Usage
@@ -19,4 +19,9 @@
 ## Run
  ```
     python track.py 
+ ```
+
+ ## Run script with totals output
+ ```
+ python track_with_totals_output.py
  ```
