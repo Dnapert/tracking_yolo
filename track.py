@@ -27,9 +27,9 @@ while (True):
     image_show = cv2.resize(image_show, (640, 480))
     predictions = model(image_show)
     print(predictions.pandas().xyxy[0].drop_duplicates(subset=['name']).name.value_counts())
-    detectons = predictions.pandas().xyxy[0].to_numpy()
+    detections = predictions.pandas().xyxy[0].to_numpy()
 
-    track_bbs_ids = mot_tracker.update(detectons)
+    track_bbs_ids = mot_tracker.update(detections)
 
     for j in range(len(track_bbs_ids.tolist())):
         coords = track_bbs_ids.tolist()[j]
