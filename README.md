@@ -16,12 +16,8 @@
     pip install -r requirements.txt
  ```
 
-## Run
- ```
-    python track.py 
- ```
 
- ## Run script with totals output
+ ## Run tracking with totals output
  ```
  python track_with_totals_output.py
  ```
