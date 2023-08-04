@@ -15,12 +15,12 @@ vid = cv2.VideoCapture(0)
 vid.set(cv2.CAP_PROP_FPS, desired_frame_rate)
 mot_tracker = Sort()
 
-model = torch.hub.load('ultralytics/yolov5', 'custom', path='best.pt')
+model = torch.hub.load('ultralytics/yolov5', 'custom', path='exp_2.pt')
 
 # Dictionary to store unique IDs and their classifications
 id_classification_dict = {}
 
-i = 0
+i = 0 # This is just to limit the number of frames for testing
 
 while True:
     ret, image_show = vid.read()
@@ -49,6 +49,7 @@ while True:
         name = "ID: " + str(name_idx) 
         class_name = model.names[int(class_idx)]  # Get the class name using the class index
 
+# This next section is just for visualization, we may want to put this in a separate function to easily turn it on/off for testing, we will get better performance without it on
         color = (0, 255, 0)
         cv2.rectangle(image_show, (x1, y1), (x2, y2), color, 2)
         cv2.putText(image_show, f"{name}, {class_name}", (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.9, color, 2)
