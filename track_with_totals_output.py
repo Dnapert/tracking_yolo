@@ -29,23 +29,24 @@ while True:
     image_show = cv2.resize(image_show, (640, 480))
     predictions = model(image_show)
     detections = predictions.pandas().xyxy[0].to_numpy()
+    if len(detections) == 0:
+        continue
 
     # Converting detections to the format [x1, y1, x2, y2, confidence, class_idx, name]
     track_detections = []
     for detect in detections:
         x1, y1, x2, y2, conf, class_idx, name = detect
-        track_detections.append([x1, y1, x2, y2, conf])
+        track_detections.append([x1, y1, x2, y2, class_idx,conf])
 
     # Updating the tracking using SORT
     track_bbs_ids = mot_tracker.update(torch.Tensor(track_detections))
 
     for j in range(len(track_bbs_ids)):
         coords = track_bbs_ids[j]
-        if len(coords) < 5:  # if no detection in the frame
-           coords = np.empty((0, 5))
+        
         x1, y1, x2, y2 = int(coords[0]), int(coords[1]), int(coords[2]), int(coords[3])
         name_idx = int(coords[4])
-        name = "ID: " + str(name_idx)
+        name = "ID: " + str(name_idx) 
         class_name = model.names[int(class_idx)]  # Get the class name using the class index
 
         color = (0, 255, 0)
