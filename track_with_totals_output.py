@@ -9,13 +9,14 @@ if not os.path.exists(save_path):
 output_path = os.path.join(save_path, 'output.avi')
 fourcc = cv2.VideoWriter_fourcc(*'MJPG')
 
-desired_frame_rate = 10
+desired_frame_rate = 30
 output_video = cv2.VideoWriter(output_path, fourcc, desired_frame_rate, (640, 480))
-vid = cv2.VideoCapture(0)
+vid = cv2.VideoCapture(1)
 vid.set(cv2.CAP_PROP_FPS, desired_frame_rate)
 mot_tracker = Sort()
 
-model = torch.hub.load('ultralytics/yolov5', 'custom', path='exp_2.pt')
+model = torch.hub.load('ultralytics/yolov5', 'custom', path='yolov5s.pt')
+model.conf = 0.65  # Confidence threshold (0-1)
 
 # Dictionary to store unique IDs and their classifications
 id_classification_dict = {}
